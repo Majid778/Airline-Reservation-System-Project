@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel= "stylesheet" href = "{{ url_for('static', filename='css/form.css')}}">
+</head>
+<body>
+    <ul>
+        <li> <a href= "/"> {{customer}}</a></li>
+        <li> <a href= "/addinfo"> Book flight </li>  </a>
+        <li> <a href= "/cancelflight"> Cancel Flight </a></li>
+        <li> <a href= "/addphone_no"> Add Phone Number </a></li>
+        <li style="float:right"> <a href = "/logout"> Logout </a> </li>
+    </ul>
+    
+    <form action= "/post" method= "POST">
+        <h1 style= "text-align:center"> Welcome, {{customer}} </h1>
+    </form>
+
+    <!-- Load up recent flight information Gather variables from app.py-->
+    
+    <!-- Nav header bar-->
+    {%if result %}
+    <h1 style= "text-align:center">{{result}}</h1>
+    {% endif %}
+
+    <section class = "banners"> 
+    <h1 style = "text-align: center"> Your confirmed flights </h1>
+
+    {% for line in info %}
+        <p> Ticket id: {{line['Ticket_id']}} </p>
+        <p> Flight number: {{line['flight_number']}}</p>
+        <p> Sold Price: {{line['sold_price']}}</p>
+
+
+    {%endfor%}
+    </section>
+
+    <section class = "banners"> 
+    <h1> Your Yearly Spending: ${{spending_year.spending_year}} </h1>
+    <h1> Your Monthly Spending: ${{spending_month.spending_month}} </h1>
+    
+    <table id = "table"> 
+        <th>Month 1</th>
+        <th>Month 2</th>
+        <th>Month 3</th>
+        <th>Month 4</th>
+        <th>Month 5</th>
+        <th>Month 6</th>
+        <tr>
+            <td>{{spending_1.spending_1}}</td>
+            <td>{{spending_2.spending_2}}</td>
+            <td>{{spending_3.spending_3}}</td>
+            <td>{{spending_4.spending_4}}</td>
+            <td>{{spending_5.spending_5}}</td>
+            <td>{{spending_6.spending_6}}</td>
+        </tr>
+    </table>
+    </section>
+    <form method = 'POST' action="/profile"> 
+        <h1> Search Spending between these dates </h1>
+        <label for="startdate">Departure Date:</label>
+        <input type="date" id="startdate" name="startdate" placeholder="Start Date">
+        <label for="enddate">Return Date:</label>
+        <input type="date" id="enddate" name="enddate" placeholder="End Date">
+        <a>
+            <input type="submit" value="Submit">
+        </a>
+    </form>
+    {%if queryspending%}
+    <h1> Your Query Spending: ${{queryspending.queryspending}} </h1>
+    {%endif%}
+
+
+        <!-- Pop the flight from database
+             Delete entry WHERE flight_info corresponds
+        -->
+
+
+
+
+
+    <h1 style= "text-align:center"> Give a rating! </h1>
+
+    <div class="container">
+        <form method = 'POST' action="/profile"> 
+        
+        <label for="flight_id">Flight id:</label>
+        <select  list="flight_id" id="flight_id" name="flight_id" placeholder="flight id" required>
+            {%for line in reviewflights%}
+            <option value="{{line['flight_number']}}">{{line['flight_number']}}</option>
+            {%endfor%}
+        </select>
+
+          <label for="fname">Name</label>
+          <input type="text" id="fname" name="name" placeholder="Your name..">.
+      
+          <label for="rating">Rating</label>
+          <select id="rating" name="rating">
+            <option value={{5}}>⭐⭐⭐⭐⭐</option>
+            <option value={{4}}>⭐⭐⭐⭐</option>
+            <option value={{3}}>⭐⭐⭐</option>
+            <option value={{2}}> ⭐⭐ </option>
+            <option value={{1}}>⭐</option>
+
+          </select>
+      
+          <label for="comments">Subject</label>
+          <textarea id="comments" name="comments" placeholder="Write something.." style="height:200px"></textarea>
+      
+          <input style= "justify-content: center" type="submit" value="Submit">
+        </form>
+      </div>
+        
+
+
+
+
+    </div>
+    
+</body>
+</html>

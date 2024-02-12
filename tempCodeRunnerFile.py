@@ -1,0 +1,1 @@
+  # if occupied.get('occupied')/capacity. >= capacity.get('Num_of_seats'):

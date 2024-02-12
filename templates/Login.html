@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel= "stylesheet" href = "{{ url_for('static', filename='css/login.css')}}">
+</head>
+<body>
+    <ul>
+        <li> <a href= "/"> Home </a> </li>
+        <li style= "float:right"> <a href = "/loginstaff"> Staff Login </a></li>
+    </ul>
+    <h1 style= "text-align: center"> Login to continue using the platform</h1>
+    <h1> Login as customer</h1>
+    <form method = "POST" action="/login"> 
+        <div class = "container"> 
+            <strong> <label for="username"> Username/Email: </label> <br> </strong>
+            <input type="text" name="username" required/><br>
+            <strong> <label for="password">password:</label> <br> </strong>
+            <input type="text" name="password" required/>
+            <!-- <a href= '/profile'> -->
+            <a >
+            <input id = "button" type="submit"/>
+            {%if error %}
+                <h1> ERROR: {{error}} </h1>
+            {% endif %}
+            <!-- <button type="submit" form="form" value="Submit">Submit</button> -->
+            </a>
+            
+        </div>
+
+    </form>
+
+    
+</body>
+</html>

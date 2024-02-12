@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel= "stylesheet" href = "{{ url_for('static', filename='css/main.css')}}">
+</head>
+<body>
+    <ul>
+        <li> <a> {{staffuser}} </a></li>
+        <li> <a href= "/staffedit"> Edit flight information </li> </a>
+        <li> <a href= "/staffview"> View information</li> </a>
+        <li> <a href= "/addflight"> Add a Flight</li> </a>
+        <li> <a href= "/addairport"> Add new Airport</li> </a>
+        <li> <a href= "/addairplane"> Add new Airplane </a></li>
+        <li> <a href= "/addphone_no"> Add Phone Number </a></li>
+        <li style="float:right"> <a href = "/logout"> Logout </a> </li>
+        
+
+    </ul>
+
+    <h1> Welcome to the staff profile {{staffuser}} </h1>
+
+    <!-- Subnavbar section: View-->
+    <form method = "POST" action="/staffprofile">
+    <h1> View Flight Ratings </h1>
+
+    <label for="flightid_rating">Choose Flight ID: </label>
+            <select name = "flightid_rating" id="flightid_rating" required>
+             {% for line in flights %}
+                <option value="{{line['flight_number']}}"> {{line['flight_number']}}</option>
+            {% endfor %}
+            </select>
+
+            <a>
+                <input type="submit" value="Submit">
+            </a>
+        {% if reviews%}
+            <p> Flight id: {{reviews[0]['flight_id']}} </p>
+            <p> Average Rating: {{averagerating.averagerating}} </p>
+            <div>
+            {% for line in reviews %}
+            <table style= "text-align: center;">
+                <th>Name</th>
+                <th>Rating</th>
+                <th>Review</th>
+                <tr>
+                    <td>{{line['name']}}</td>
+                    <td>{{line['rating']}}</td>
+                    <td>{{line['review']}}</td>
+                </tr>
+            </table>
+            </div>
+            {% endfor %}
+        {% endif %}
+    </form>
+
+    <h1> Most frequent customer within the last year: {{mostfrequent["Name"]}}</h1>
+    <form method = "POST" action="/staffprofile">
+        <h1> Search Customer flight </h1>
+        <label for="email">Email</label>
+        <input type="text" id="email" name="email" placeholder="Email" > 
+        <a>
+            <input type="submit" value="Submit">
+        </a>
+        {% if customerflights%}
+            <table style= "text-align: center;">
+                <th>Flight Number</th>
+                <th>Departure Airport</th>
+                <th>Departure_date</th>
+                <th>Arrival Airport</th>
+                <th>Arrival Time</th>
+                <th>Flight status </th>
+                {% for line in customerflights %}
+                <tr>
+                    <td>{{line['flight_number']}}</td>
+                    <td>{{line['Departure_airport']}}</td>
+                    <td>{{line['Departure_date']}}</td>
+                    <td>{{line['Arrival_airport']}}</td>
+                    <td>{{line['Arrival_time']}}</td>
+                    <td>{{line['flight_status']}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            </div>
+
+        {% endif %}
+    </form>
+
+    <h1> View reports </h1>
+    <h3> Yearly Tickets Sold: {{count_year.count_year}}</h3>
+    <h3> Monthly Tickets Sold: {{count_month.count_month}}</h3>
+    <table id = "table"> 
+        <th>Month 1</th>
+        <th>Month 2</th>
+        <th>Month 3</th>
+        <th>Month 4</th>
+        <th>Month 5</th>
+        <th>Month 6</th>
+        <tr>
+            <td>{{spending_1.spending_1}}</td>
+            <td>{{spending_2.spending_2}}</td>
+            <td>{{spending_3.spending_3}}</td>
+            <td>{{spending_4.spending_4}}</td>
+            <td>{{spending_5.spending_5}}</td>
+            <td>{{spending_6.spending_6}}</td>
+        </tr>
+    </table>
+
+    <!-- TABLE HERE -->
+
+    <h1> View earned revenue</h1> 
+    <h3> Yearly Revenue: {{total_year.total_year}}</h3>
+    <h3> Monthly Revenue: {{total_month.total_month}}</h3>
+
+
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel= "stylesheet" href = "{{ url_for('static', filename='css/main.css')}}">
+</head>
+<body>
+    <ul>
+        <li> <a> {{user}} </a></li>
+        <li style="float:right"> <a href = "/logout"> Logout </a> </li>
+
+    </ul>
+    <table id = "table"> 
+        <th>Flight Number</th>
+        <th>Departure Airport</th>
+        <th>Departure_date</th>
+        <th>Arrival Airport</th>
+        <th>Arrival Time</th>
+        <th>Destination</th>
+        <th>Flight status </th>
+        
+        <tr>
+            <td>{{flight['flight_number']}}</td>
+            <td>{{flight['Departure_airport']}}</td>
+            <td>{{flight['Departure_date']}}</td>
+            <td>{{flight['Arrival_airport']}}</td>
+            <td>{{flight['Arrival_time']}}</td>
+            <td>{{flight['flight_status']}}</td>
+
+        </tr>
+    </table>
+    <h1 style= "text-align:center"> Enter Payment Details</h1> 
+    <h1 style= "text-align:center"> Price: {{price}}</h1> 
+    <!-- Card type- credit/debit, card number, name on card, expiration date -->
+    <div id = "payment_info">
+    <form action = "/bookflight/{{flight_num}}" method = "POST"> 
+        <label for="credit/debit">Credit/Debit:</label>
+        <select  list="credit/debit" id="credit/debit" name="credit/debit" placeholder="credit/debit" required>
+            <option value="Credit">credit</option>
+            <option value="Debit">debit</option>
+        </select>
+        <label for= "card_num"> Card Number </label>
+        <input type="text" id="card_num" name="card_num" placeholder="Card Number" required> 
+        <label for ="card_name"> Name on card </label>
+        <input type="text" id = "card_name" name="card_name" placeholder="Card Name" required>
+        <label for ="exp_date"> Expiration Date: </label>
+        <input type="text" id = "exp_date" name="exp_date" placeholder="mm/yy" required>
+
+        <input type="submit" value="Submit">
+    </form>
+    </div>
+</body>
+</html>
+
+
+
